@@ -3,7 +3,7 @@
   "displayName": "Ligofff - LGF Logger",
   "version": "0.1.0",
   "unity": "2022.2",
-  "description": "Package for Unity game engine.",
+  "description": "Just a simple logger",
   "keywords": [
     "unity",
 	"unity3d",
