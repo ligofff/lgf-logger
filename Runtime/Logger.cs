@@ -16,6 +16,34 @@ public static class Logger
         Debug.Log($"<color=#{color}>{$"[{type.Name}]",-35}</color> {message}", context);
     }
     
+    public static void LogWarning(this object context, string message)
+    {
+        var type = context.GetType();
+        var color = ColorUtility.ToHtmlStringRGB(GetColorFromObject(type));
+        Debug.LogWarning($"<color=#{color}>{$"[{type.Name}]",-35}</color> {message}");
+    }
+
+    public static void LogWarning(this UnityEngine.Object context, string message)
+    {
+        var type = context.GetType();
+        var color = ColorUtility.ToHtmlStringRGB(GetColorFromObject(type));
+        Debug.LogWarning($"<color=#{color}>{$"[{type.Name}]",-35}</color> {message}", context);
+    }
+    
+    public static void LogError(this object context, string message)
+    {
+        var type = context.GetType();
+        var color = ColorUtility.ToHtmlStringRGB(GetColorFromObject(type));
+        Debug.LogError($"<color=#{color}>{$"[{type.Name}]",-35}</color> {message}");
+    }
+
+    public static void LogError(this UnityEngine.Object context, string message)
+    {
+        var type = context.GetType();
+        var color = ColorUtility.ToHtmlStringRGB(GetColorFromObject(type));
+        Debug.LogError($"<color=#{color}>{$"[{type.Name}]",-35}</color> {message}", context);
+    }
+    
     private static Color GetColorFromObject(object obj)
     {
         var hue = (float) Mathf.Abs(obj.GetHashCode()) / int.MaxValue;
