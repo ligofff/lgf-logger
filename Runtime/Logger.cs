@@ -49,7 +49,7 @@ public static class Logger
     {
         var hue = (float) Mathf.Abs(obj.FullName.GetHashCode()) / int.MaxValue;
             
-        var color = Color.HSVToRGB(hue, 0.7f, 1f);
+        var color = Color.HSVToRGB(hue, 0.5f, 1f);
         color.a = 0.15f;
 
         return color;
