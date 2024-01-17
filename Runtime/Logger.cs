@@ -9,50 +9,45 @@ public static class Logger
 
     public static void Log(this object context, string message)
     {
-        var type = context.GetType();
-        var color = ColorUtility.ToHtmlStringRGB(GetColorFromObject(type));
-        Debug.Log($"<color=#{color}>[{type.Name}]</color> {message}");
+        Debug.Log(GetMessage(context, message));
         OnLog?.Invoke(context, message);
     }
 
     public static void Log(this UnityEngine.Object context, string message)
     {
-        var type = context.GetType();
-        var color = ColorUtility.ToHtmlStringRGB(GetColorFromObject(type));
-        Debug.Log($"<color=#{color}>[{type.Name}]</color> {message}", context);
+        Debug.Log(GetMessage(context, message), context);
         OnLog?.Invoke(context, message);
     }
     
     public static void LogWarning(this object context, string message)
     {
-        var type = context.GetType();
-        var color = ColorUtility.ToHtmlStringRGB(GetColorFromObject(type));
-        Debug.LogWarning($"<color=#{color}>[{type.Name}]</color> {message}");
+        Debug.LogWarning(GetMessage(context, message));
         OnLogWarning?.Invoke(context, message);
     }
 
     public static void LogWarning(this UnityEngine.Object context, string message)
     {
-        var type = context.GetType();
-        var color = ColorUtility.ToHtmlStringRGB(GetColorFromObject(type));
-        Debug.LogWarning($"<color=#{color}>[{type.Name}]</color> {message}", context);
+        Debug.LogWarning(GetMessage(context, message), context);
         OnLogWarning?.Invoke(context, message);
     }
     
     public static void LogError(this object context, string message)
     {
-        var type = context.GetType();
-        var color = ColorUtility.ToHtmlStringRGB(GetColorFromObject(type));
-        Debug.LogError($"<color=#{color}>[{type.Name}]</color> {message}");
+        Debug.LogError(GetMessage(context, message));
         OnLogError?.Invoke(context, message);
     }
 
     public static void LogError(this UnityEngine.Object context, string message)
     {
+        Debug.LogError(GetMessage(context, message), context);
+        OnLogError?.Invoke(context, message);
+    }
+
+    private static string GetMessage(this object context, string message)
+    {
         var type = context.GetType();
         var color = ColorUtility.ToHtmlStringRGB(GetColorFromObject(type));
-        Debug.LogError($"<color=#{color}>[{type.Name}]</color> {message}", context);
-        OnLogError?.Invoke(context, message);
+        return $"[{Time.frameCount}] <color=#{color}>[{type.Name}]</color> {message}";
     }
     
     private static Color GetColorFromObject(Type obj)
