@@ -57,7 +57,7 @@ public static class Logger
         var type = context.GetType();
         var color = ColorUtility.ToHtmlStringRGB(GetColorFromObject(type));
         
-        var frameCount = MainThread == Thread.CurrentThread ? Time.frameCount.ToString() : "-";
+        var frameCount = MainThread == Thread.CurrentThread ? Time.frameCount.ToString() : $"{Thread.CurrentThread.Name}";
         return $"[{frameCount}] <color=#{color}>[{type.Name}]</color> {message}";
     }
     
