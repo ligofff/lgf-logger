@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using UnityEngine;
 
 public static class Logger
@@ -6,6 +7,14 @@ public static class Logger
     public static event Action<object, string> OnLog; 
     public static event Action<object, string> OnLogWarning;
     public static event Action<object, string> OnLogError;
+
+    private static Thread MainThread;
+    
+    [RuntimeInitializeOnLoadMethod]
+    public static void Init()
+    {
+        MainThread = Thread.CurrentThread;
+    }
 
     public static void Log(this object context, string message)
     {
@@ -47,7 +56,9 @@ public static class Logger
     {
         var type = context.GetType();
         var color = ColorUtility.ToHtmlStringRGB(GetColorFromObject(type));
-        return $"[{Time.frameCount}] <color=#{color}>[{type.Name}]</color> {message}";
+        
+        var frameCount = MainThread == Thread.CurrentThread ? Time.frameCount.ToString() : "-";
+        return $"[{frameCount}] <color=#{color}>[{type.Name}]</color> {message}";
     }
     
     private static Color GetColorFromObject(Type obj)
